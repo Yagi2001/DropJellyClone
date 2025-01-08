@@ -13,12 +13,12 @@ public class GridGenerator : MonoBehaviour
     [SerializeField]
     private GameObject _tilePrefab;
 
-    void Start()
+    private void Start()
     {
         GenerateGrid();
     }
 
-    void GenerateGrid()
+    private void GenerateGrid()
     {
         for (int row = 0; row < _rows; row++)
         {
