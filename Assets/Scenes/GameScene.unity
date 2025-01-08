@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5eb20bc6ff4a746b1236d900061e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPoint: {fileID: 1761703027}
+  _spawnPoint: {fileID: 722625900}
   _cubePrefabs:
   - {fileID: 1230014616816761729, guid: 541aba61a627a1d499f6e26f2e82cb88, type: 3}
   - {fileID: 3690879666663035759, guid: f2aa908b01dc62c49982e65f9e5c9962, type: 3}
@@ -452,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722625898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2363572, y: -1.6079438, z: -0.19358389}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -895,11 +895,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e7ef27f3fd9463489aa0ffbb5d9cd13, type: 3}
---- !u!4 &1761703027 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6723480309810110799, guid: 1e7ef27f3fd9463489aa0ffbb5d9cd13, type: 3}
-  m_PrefabInstance: {fileID: 1761703026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1819750104
 GameObject:
   m_ObjectHideFlags: 0
