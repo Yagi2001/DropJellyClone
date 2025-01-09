@@ -56,7 +56,7 @@ public class BlockMovement : MonoBehaviour
             }
         }
         lowestUnoccupied.GetComponent<GridInfo>().isOccupied = true;
-        lowestUnoccupied.GetComponent<GridInfo>().AttachColorToPositions( gameObject );
+        lowestUnoccupied.GetComponent<GridInfo>().AttachBlocksToPositions( gameObject );
         _targetY = minY;
         _isFalling = true;
     }

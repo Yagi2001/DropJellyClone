@@ -4,35 +4,34 @@ using UnityEngine;
 
 public class GridMatchSearch : MonoBehaviour
 {
-    [SerializeField]
-    private GridInfo testGridInfo;
+    private GridInfo _gridInfo;
 
     private void Start()
     {
-        testGridInfo = gameObject.GetComponent<GridInfo>();
+        _gridInfo = GetComponent<GridInfo>();
     }
 
-    private void Update()
+    public bool CheckMatches()
     {
-        if (testGridInfo != null)
+        if (_gridInfo != null)
         {
-            bool hasMatch = CheckForMatchingNeighbor( testGridInfo );
+            bool hasMatch = CheckForMatchingNeighbor( _gridInfo );
             if (hasMatch)
             {
                 Debug.Log( "Match" );
             }
+            return hasMatch;
         }
+        return false;
     }
 
     public bool CheckForMatchingNeighbor( GridInfo gridInfo )
     {
         if (gridInfo == null) return false;
-
         if (HasMatchingTopNeighbor( gridInfo )) return true;
         if (HasMatchingBottomNeighbor( gridInfo )) return true;
         if (HasMatchingLeftNeighbor( gridInfo )) return true;
         if (HasMatchingRightNeighbor( gridInfo )) return true;
-
         return false;
     }
 
@@ -40,16 +39,32 @@ public class GridMatchSearch : MonoBehaviour
     {
         if (gridInfo.topNeighbor == null) return false;
 
-        if (gridInfo.topNeighbor.bottomRight != BlockColor.None &&
-            gridInfo.topNeighbor.bottomRight == gridInfo.topRight)
+        if (gridInfo.topNeighbor.bottomRight != null && gridInfo.topRight != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.topNeighbor.bottomRight );
+            BlockColor ourColor = GetBlockColor( gridInfo.topRight );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.topRight );
+                Destroy( gridInfo.topNeighbor.bottomRight );
+                gridInfo.topRight = null;
+                gridInfo.topNeighbor.bottomRight = null;
+                return true;
+            }
         }
 
-        if (gridInfo.topNeighbor.bottomLeft != BlockColor.None &&
-            gridInfo.topNeighbor.bottomLeft == gridInfo.topLeft)
+        if (gridInfo.topNeighbor.bottomLeft != null && gridInfo.topLeft != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.topNeighbor.bottomLeft );
+            BlockColor ourColor = GetBlockColor( gridInfo.topLeft );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.topLeft );
+                Destroy( gridInfo.topNeighbor.bottomLeft );
+                gridInfo.topLeft = null;
+                gridInfo.topNeighbor.bottomLeft = null;
+                return true;
+            }
         }
 
         return false;
@@ -59,16 +74,32 @@ public class GridMatchSearch : MonoBehaviour
     {
         if (gridInfo.bottomNeighbor == null) return false;
 
-        if (gridInfo.bottomNeighbor.topRight != BlockColor.None &&
-            gridInfo.bottomNeighbor.topRight == gridInfo.bottomRight)
+        if (gridInfo.bottomNeighbor.topRight != null && gridInfo.bottomRight != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.bottomNeighbor.topRight );
+            BlockColor ourColor = GetBlockColor( gridInfo.bottomRight );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.bottomRight );
+                Destroy( gridInfo.bottomNeighbor.topRight );
+                gridInfo.bottomRight = null;
+                gridInfo.bottomNeighbor.topRight = null;
+                return true;
+            }
         }
 
-        if (gridInfo.bottomNeighbor.topLeft != BlockColor.None &&
-            gridInfo.bottomNeighbor.topLeft == gridInfo.bottomLeft)
+        if (gridInfo.bottomNeighbor.topLeft != null && gridInfo.bottomLeft != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.bottomNeighbor.topLeft );
+            BlockColor ourColor = GetBlockColor( gridInfo.bottomLeft );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.bottomLeft );
+                Destroy( gridInfo.bottomNeighbor.topLeft );
+                gridInfo.bottomLeft = null;
+                gridInfo.bottomNeighbor.topLeft = null;
+                return true;
+            }
         }
 
         return false;
@@ -78,16 +109,32 @@ public class GridMatchSearch : MonoBehaviour
     {
         if (gridInfo.leftNeighbor == null) return false;
 
-        if (gridInfo.leftNeighbor.topRight != BlockColor.None &&
-            gridInfo.leftNeighbor.topRight == gridInfo.topLeft)
+        if (gridInfo.leftNeighbor.topRight != null && gridInfo.topLeft != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.leftNeighbor.topRight );
+            BlockColor ourColor = GetBlockColor( gridInfo.topLeft );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.topLeft );
+                Destroy( gridInfo.leftNeighbor.topRight );
+                gridInfo.topLeft = null;
+                gridInfo.leftNeighbor.topRight = null;
+                return true;
+            }
         }
 
-        if (gridInfo.leftNeighbor.bottomRight != BlockColor.None &&
-            gridInfo.leftNeighbor.bottomRight == gridInfo.bottomLeft)
+        if (gridInfo.leftNeighbor.bottomRight != null && gridInfo.bottomLeft != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.leftNeighbor.bottomRight );
+            BlockColor ourColor = GetBlockColor( gridInfo.bottomLeft );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.bottomLeft );
+                Destroy( gridInfo.leftNeighbor.bottomRight );
+                gridInfo.bottomLeft = null;
+                gridInfo.leftNeighbor.bottomRight = null;
+                return true;
+            }
         }
 
         return false;
@@ -97,18 +144,41 @@ public class GridMatchSearch : MonoBehaviour
     {
         if (gridInfo.rightNeighbor == null) return false;
 
-        if (gridInfo.rightNeighbor.topLeft != BlockColor.None &&
-            gridInfo.rightNeighbor.topLeft == gridInfo.topRight)
+        if (gridInfo.rightNeighbor.topLeft != null && gridInfo.topRight != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.rightNeighbor.topLeft );
+            BlockColor ourColor = GetBlockColor( gridInfo.topRight );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.topRight );
+                Destroy( gridInfo.rightNeighbor.topLeft );
+                gridInfo.topRight = null;
+                gridInfo.rightNeighbor.topLeft = null;
+                return true;
+            }
         }
 
-        if (gridInfo.rightNeighbor.bottomLeft != BlockColor.None &&
-            gridInfo.rightNeighbor.bottomLeft == gridInfo.bottomRight)
+        if (gridInfo.rightNeighbor.bottomLeft != null && gridInfo.bottomRight != null)
         {
-            return true;
+            BlockColor neighborColor = GetBlockColor( gridInfo.rightNeighbor.bottomLeft );
+            BlockColor ourColor = GetBlockColor( gridInfo.bottomRight );
+            if (neighborColor != BlockColor.None && neighborColor == ourColor)
+            {
+                Destroy( gridInfo.bottomRight );
+                Destroy( gridInfo.rightNeighbor.bottomLeft );
+                gridInfo.bottomRight = null;
+                gridInfo.rightNeighbor.bottomLeft = null;
+                return true;
+            }
         }
 
         return false;
+    }
+
+    private BlockColor GetBlockColor( GameObject piece )
+    {
+        BlockInfo info = piece.GetComponent<BlockInfo>();
+        if (info != null) return info.blockColor;
+        return BlockColor.None;
     }
 }

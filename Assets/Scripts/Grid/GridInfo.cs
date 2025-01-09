@@ -5,10 +5,10 @@ using UnityEngine;
 public class GridInfo : MonoBehaviour
 {
     public bool isOccupied;
-    public BlockColor topLeft;
-    public BlockColor topRight;
-    public BlockColor bottomLeft;
-    public BlockColor bottomRight;
+    public GameObject topLeft;
+    public GameObject topRight;
+    public GameObject bottomLeft;
+    public GameObject bottomRight;
 
     public GridInfo topNeighbor;
     public GridInfo bottomNeighbor;
@@ -20,19 +20,17 @@ public class GridInfo : MonoBehaviour
         isOccupied = false;
     }
 
-    public void AttachColorToPositions( GameObject block )
+    public void AttachBlocksToPositions( GameObject block )
     {
-        // Get all colors of the block
         BlockInfo[] blockPieces = block.GetComponentsInChildren<BlockInfo>();
 
         if (blockPieces.Length == 1)
         {
-            // Single block covers all 4 corners
-            BlockColor color = blockPieces[0].blockColor;
-            topLeft = color;
-            topRight = color;
-            bottomLeft = color;
-            bottomRight = color;
+            GameObject piece = blockPieces[0].gameObject;
+            topLeft = piece;
+            topRight = piece;
+            bottomLeft = piece;
+            bottomRight = piece;
         }
         else if (blockPieces.Length == 2)
         {
@@ -40,47 +38,43 @@ public class GridInfo : MonoBehaviour
             {
                 Vector3 localPos = piece.transform.localPosition;
                 Vector3 localScale = piece.transform.localScale;
+
                 if (Mathf.Approximately( localScale.x, 0.5f ) && Mathf.Approximately( localScale.y, 1f ))
                 {
                     if (localPos.x <= 0f)
                     {
-                        // Left half
-                        topLeft = piece.blockColor;
-                        bottomLeft = piece.blockColor;
+                        topLeft = piece.gameObject;
+                        bottomLeft = piece.gameObject;
                     }
                     else
                     {
-                        // Right half
-                        topRight = piece.blockColor;
-                        bottomRight = piece.blockColor;
+                        topRight = piece.gameObject;
+                        bottomRight = piece.gameObject;
                     }
                 }
                 else if (Mathf.Approximately( localScale.x, 1f ) && Mathf.Approximately( localScale.y, 0.5f ))
                 {
                     if (localPos.y >= 0f)
                     {
-                        // Top half
-                        topLeft = piece.blockColor;
-                        topRight = piece.blockColor;
+                        topLeft = piece.gameObject;
+                        topRight = piece.gameObject;
                     }
                     else
                     {
-                        // Bottom half
-                        bottomLeft = piece.blockColor;
-                        bottomRight = piece.blockColor;
+                        bottomLeft = piece.gameObject;
+                        bottomRight = piece.gameObject;
                     }
                 }
                 else
                 {
-                    // Fallback: Quadrant-based approach
                     if (localPos.x <= 0 && localPos.y >= 0)
-                        topLeft = piece.blockColor;
+                        topLeft = piece.gameObject;
                     else if (localPos.x > 0 && localPos.y >= 0)
-                        topRight = piece.blockColor;
+                        topRight = piece.gameObject;
                     else if (localPos.x <= 0 && localPos.y < 0)
-                        bottomLeft = piece.blockColor;
+                        bottomLeft = piece.gameObject;
                     else if (localPos.x > 0 && localPos.y < 0)
-                        bottomRight = piece.blockColor;
+                        bottomRight = piece.gameObject;
                 }
             }
         }
@@ -91,62 +85,59 @@ public class GridInfo : MonoBehaviour
                 Vector3 localPos = piece.transform.localPosition;
                 Vector3 localScale = piece.transform.localScale;
 
-                // Vertical half: covers left or right
                 if (Mathf.Approximately( localScale.x, 0.5f ) && Mathf.Approximately( localScale.y, 1f ))
                 {
                     if (localPos.x <= 0)
                     {
-                        topLeft = piece.blockColor;
-                        bottomLeft = piece.blockColor;
+                        topLeft = piece.gameObject;
+                        bottomLeft = piece.gameObject;
                     }
                     else
                     {
-                        topRight = piece.blockColor;
-                        bottomRight = piece.blockColor;
+                        topRight = piece.gameObject;
+                        bottomRight = piece.gameObject;
                     }
                 }
-                // Horizontal half: covers top or bottom
                 else if (Mathf.Approximately( localScale.x, 1f ) && Mathf.Approximately( localScale.y, 0.5f ))
                 {
                     if (localPos.y >= 0)
                     {
-                        topLeft = piece.blockColor;
-                        topRight = piece.blockColor;
+                        topLeft = piece.gameObject;
+                        topRight = piece.gameObject;
                     }
                     else
                     {
-                        bottomLeft = piece.blockColor;
-                        bottomRight = piece.blockColor;
+                        bottomLeft = piece.gameObject;
+                        bottomRight = piece.gameObject;
                     }
                 }
                 else if (Mathf.Approximately( localScale.x, 0.5f ) && Mathf.Approximately( localScale.y, 0.5f ))
                 {
                     if (localPos.x <= 0 && localPos.y >= 0)
-                        topLeft = piece.blockColor;
+                        topLeft = piece.gameObject;
                     else if (localPos.x > 0 && localPos.y >= 0)
-                        topRight = piece.blockColor;
+                        topRight = piece.gameObject;
                     else if (localPos.x <= 0 && localPos.y < 0)
-                        bottomLeft = piece.blockColor;
+                        bottomLeft = piece.gameObject;
                     else if (localPos.x > 0 && localPos.y < 0)
-                        bottomRight = piece.blockColor;
+                        bottomRight = piece.gameObject;
                 }
             }
         }
         else if (blockPieces.Length == 4)
         {
-            // Four piece block: one piece per corner
             foreach (BlockInfo piece in blockPieces)
             {
                 Vector3 localPos = piece.transform.localPosition;
 
                 if (localPos.x <= 0 && localPos.y >= 0)
-                    topLeft = piece.blockColor;
+                    topLeft = piece.gameObject;
                 else if (localPos.x > 0 && localPos.y >= 0)
-                    topRight = piece.blockColor;
+                    topRight = piece.gameObject;
                 else if (localPos.x <= 0 && localPos.y < 0)
-                    bottomLeft = piece.blockColor;
+                    bottomLeft = piece.gameObject;
                 else if (localPos.x > 0 && localPos.y < 0)
-                    bottomRight = piece.blockColor;
+                    bottomRight = piece.gameObject;
             }
         }
     }
