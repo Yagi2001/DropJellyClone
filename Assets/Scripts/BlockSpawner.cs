@@ -26,11 +26,12 @@ public class BlockSpawner : MonoBehaviour
         SpawnRandomBlock();
     }
 
-    public void SpawnRandomBlock()
+    private void SpawnRandomBlock()
     {
         ResetAvailableCubes();
         int randomIndex = UnityEngine.Random.Range( 0, _configurationPrefabs.Length );
         GameObject newBlock = Instantiate( _configurationPrefabs[randomIndex], transform.position, Quaternion.identity );
+        //newBlock.transform.rotation = Quaternion.Euler( 0, 0, GetRandomRotation() );
 
         foreach (Transform part in newBlock.transform)
         {
@@ -39,7 +40,6 @@ public class BlockSpawner : MonoBehaviour
             newCube.transform.localScale = part.localScale;
             Destroy( part.gameObject );
         }
-        newBlock.transform.rotation = Quaternion.Euler( 0, 0, GetRandomRotation() );
     }
 
     // Ensures that the same color is not used more than once on the block

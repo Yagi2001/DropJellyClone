@@ -10,6 +10,11 @@ public class GridInfo : MonoBehaviour
     public BlockColor bottomLeft;
     public BlockColor bottomRight;
 
+    public GridInfo topNeighbor;
+    public GridInfo bottomNeighbor;
+    public GridInfo leftNeighbor;
+    public GridInfo rightNeighbor;
+
     private void Start()
     {
         isOccupied = false;
