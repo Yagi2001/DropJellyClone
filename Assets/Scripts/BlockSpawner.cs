@@ -1,14 +1,25 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class BlockSpawner : MonoBehaviour
 {
+    public static Action BlocksSettled;
     private List<GameObject> _availableCubes;
     [SerializeField]
     private GameObject[] _cubePrefabs;
     [SerializeField]
     private GameObject[] _configurationPrefabs;
 
+    private void OnEnable()
+    {
+        BlocksSettled += SpawnRandomBlock;
+    }
+
+    private void OnDisable()
+    {
+        BlocksSettled -= SpawnRandomBlock;
+    }
     private void Start()
     {
         _availableCubes = new List<GameObject>( _cubePrefabs );
@@ -18,7 +29,7 @@ public class BlockSpawner : MonoBehaviour
     public void SpawnRandomBlock()
     {
         ResetAvailableCubes();
-        int randomIndex = Random.Range( 0, _configurationPrefabs.Length );
+        int randomIndex = UnityEngine.Random.Range( 0, _configurationPrefabs.Length );
         GameObject newBlock = Instantiate( _configurationPrefabs[randomIndex], transform.position, Quaternion.identity );
 
         foreach (Transform part in newBlock.transform)
@@ -35,7 +46,7 @@ public class BlockSpawner : MonoBehaviour
     // This needs fix
     private GameObject GetUniqueCubePrefab( )
     {
-        int randomIndex = Random.Range( 0, _availableCubes.Count );
+        int randomIndex = UnityEngine.Random.Range( 0, _availableCubes.Count );
         GameObject selectedCube = _availableCubes[randomIndex];
         _availableCubes.RemoveAt( randomIndex );
         return selectedCube;
@@ -43,7 +54,7 @@ public class BlockSpawner : MonoBehaviour
 
     private float GetRandomRotation()
     {
-        int randomAngle = Random.Range( 1, 5 ) * 90;
+        int randomAngle = UnityEngine.Random.Range( 1, 5 ) * 90;
         return randomAngle;
     }
 
