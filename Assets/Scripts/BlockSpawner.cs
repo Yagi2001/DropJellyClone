@@ -20,11 +20,10 @@ public class BlockSpawner : MonoBehaviour
         ResetAvailableCubes();
         int randomIndex = Random.Range( 0, _configurationPrefabs.Length );
         GameObject newBlock = Instantiate( _configurationPrefabs[randomIndex], transform.position, Quaternion.identity );
-        List<GameObject> usedCubes = new List<GameObject>();
 
         foreach (Transform part in newBlock.transform)
         {
-            GameObject randomCube = GetUniqueCubePrefab( usedCubes );
+            GameObject randomCube = GetUniqueCubePrefab();
             GameObject newCube = Instantiate( randomCube, part.position, part.rotation, newBlock.transform );
             newCube.transform.localScale = part.localScale;
             Destroy( part.gameObject );
@@ -33,7 +32,8 @@ public class BlockSpawner : MonoBehaviour
     }
 
     // Ensures that the same color is not used more than once on the block
-    private GameObject GetUniqueCubePrefab( List<GameObject> usedCubes )
+    // This needs fix
+    private GameObject GetUniqueCubePrefab( )
     {
         int randomIndex = Random.Range( 0, _availableCubes.Count );
         GameObject selectedCube = _availableCubes[randomIndex];
