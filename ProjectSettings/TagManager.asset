@@ -9,6 +9,7 @@ TagManager:
   - TouchArea
   - Border
   - Grid
+  - MiniBlock
   layers:
   - Default
   - TransparentFX
