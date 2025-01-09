@@ -14,12 +14,11 @@ public class BlockDragnDrop : MonoBehaviour
         _blockMovement = GetComponent<BlockMovement>();
         _higlightGrids = FindObjectOfType<HighlightGrids>();
     }
-
+    // This DragnDrop Logic Needs Improvements
     private void OnMouseDown()
     {
         _gridGroups = GameObject.FindGameObjectsWithTag( "GridGroup" );
         _mouseOffset = transform.position - GetMouseWorldPosition();
-        Debug.Log( _gridGroups.Length );
     }
 
     private void OnMouseDrag()
@@ -28,7 +27,9 @@ public class BlockDragnDrop : MonoBehaviour
         {
             _higlightGrids.isDragging = true;
             _higlightGrids.block = gameObject;
-            transform.position = GetMouseWorldPosition() + _mouseOffset;
+            Vector3 newPosition = transform.position;
+            newPosition.x = GetMouseWorldPosition().x + _mouseOffset.x;
+            transform.position = newPosition;
         }
     }
 

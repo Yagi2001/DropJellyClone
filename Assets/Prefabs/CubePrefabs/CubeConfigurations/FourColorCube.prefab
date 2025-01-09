@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 3857119432413811069}
   - component: {fileID: 4875578087481036438}
   - component: {fileID: 1018980355463505899}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FourColorCube
   m_TagString: Block
   m_Icon: {fileID: 0}

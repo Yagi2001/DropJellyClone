@@ -7,11 +7,12 @@ TagManager:
   - Block
   - GridGroup
   - TouchArea
+  - Border
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Block
   - Water
   - UI
   - 

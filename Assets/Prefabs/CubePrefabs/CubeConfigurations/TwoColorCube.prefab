@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3451165900697560880}
   - component: {fileID: -5098136219757561330}
   - component: {fileID: -8903643918275870196}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TwoColorCube
   m_TagString: Block
   m_Icon: {fileID: 0}
