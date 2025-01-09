@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 4488100406907449346}
   - component: {fileID: 6457445373986148354}
   - component: {fileID: 3479416736570074001}
+  - component: {fileID: 3833002762795304769}
   m_Layer: 0
   m_Name: ThreeColorCube
   m_TagString: Block
@@ -242,6 +243,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623f16c7504ab8444a3d06caa283b66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3833002762795304769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4488100406907449345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d915473d1ba65b4f8407957f6675f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallSpeed: 5
+  isFalling: 0
 --- !u!1 &4488100408669065167
 GameObject:
   m_ObjectHideFlags: 0

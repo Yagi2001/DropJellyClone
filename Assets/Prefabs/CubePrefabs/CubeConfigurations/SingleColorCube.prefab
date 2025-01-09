@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 385208096807638926}
   - component: {fileID: 3463569343410341954}
   - component: {fileID: -2989740917827734816}
+  - component: {fileID: 3447355707054946121}
   m_Layer: 0
   m_Name: SingleColorCube
   m_TagString: Block
@@ -72,6 +73,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623f16c7504ab8444a3d06caa283b66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3447355707054946121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385208096807638925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d915473d1ba65b4f8407957f6675f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallSpeed: 5
+  isFalling: 0
 --- !u!1 &385208098300799043
 GameObject:
   m_ObjectHideFlags: 0
