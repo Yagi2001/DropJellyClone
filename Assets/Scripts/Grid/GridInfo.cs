@@ -24,8 +24,10 @@ public class GridInfo : MonoBehaviour
     {
         // Get all colors of the block
         BlockInfo[] blockPieces = block.GetComponentsInChildren<BlockInfo>();
+
         if (blockPieces.Length == 1)
         {
+            // Single block covers all 4 corners
             BlockColor color = blockPieces[0].blockColor;
             topLeft = color;
             topRight = color;
@@ -37,15 +39,49 @@ public class GridInfo : MonoBehaviour
             foreach (BlockInfo piece in blockPieces)
             {
                 Vector3 localPos = piece.transform.localPosition;
-
-                if (localPos.x <= 0 && localPos.y >= 0)
-                    topLeft = piece.blockColor;
-                else if (localPos.x > 0 && localPos.y >= 0)
-                    topRight = piece.blockColor;
-                else if (localPos.x <= 0 && localPos.y < 0)
-                    bottomLeft = piece.blockColor;
-                else if (localPos.x > 0 && localPos.y < 0)
-                    bottomRight = piece.blockColor;
+                Vector3 localScale = piece.transform.localScale;
+                if (Mathf.Approximately( localScale.x, 0.5f ) && Mathf.Approximately( localScale.y, 1f ))
+                {
+                    if (localPos.x <= 0f)
+                    {
+                        // Left half
+                        topLeft = piece.blockColor;
+                        bottomLeft = piece.blockColor;
+                    }
+                    else
+                    {
+                        // Right half
+                        topRight = piece.blockColor;
+                        bottomRight = piece.blockColor;
+                    }
+                }
+                else if (Mathf.Approximately( localScale.x, 1f ) && Mathf.Approximately( localScale.y, 0.5f ))
+                {
+                    if (localPos.y >= 0f)
+                    {
+                        // Top half
+                        topLeft = piece.blockColor;
+                        topRight = piece.blockColor;
+                    }
+                    else
+                    {
+                        // Bottom half
+                        bottomLeft = piece.blockColor;
+                        bottomRight = piece.blockColor;
+                    }
+                }
+                else
+                {
+                    // Fallback: Quadrant-based approach
+                    if (localPos.x <= 0 && localPos.y >= 0)
+                        topLeft = piece.blockColor;
+                    else if (localPos.x > 0 && localPos.y >= 0)
+                        topRight = piece.blockColor;
+                    else if (localPos.x <= 0 && localPos.y < 0)
+                        bottomLeft = piece.blockColor;
+                    else if (localPos.x > 0 && localPos.y < 0)
+                        bottomRight = piece.blockColor;
+                }
             }
         }
         else if (blockPieces.Length == 3)
@@ -55,33 +91,35 @@ public class GridInfo : MonoBehaviour
                 Vector3 localPos = piece.transform.localPosition;
                 Vector3 localScale = piece.transform.localScale;
 
-                if (localScale.x == 0.5f && localScale.y == 1f) // Vertical half
+                // Vertical half: covers left or right
+                if (Mathf.Approximately( localScale.x, 0.5f ) && Mathf.Approximately( localScale.y, 1f ))
                 {
-                    if (localPos.x <= 0) // Left half
+                    if (localPos.x <= 0)
                     {
                         topLeft = piece.blockColor;
                         bottomLeft = piece.blockColor;
                     }
-                    else if (localPos.x > 0) // Right half
+                    else
                     {
                         topRight = piece.blockColor;
                         bottomRight = piece.blockColor;
                     }
                 }
-                else if (localScale.x == 1f && localScale.y == 0.5f) // Horizontal half
+                // Horizontal half: covers top or bottom
+                else if (Mathf.Approximately( localScale.x, 1f ) && Mathf.Approximately( localScale.y, 0.5f ))
                 {
-                    if (localPos.y >= 0) // Top half
+                    if (localPos.y >= 0)
                     {
                         topLeft = piece.blockColor;
                         topRight = piece.blockColor;
                     }
-                    else if (localPos.y < 0) // Bottom half
+                    else
                     {
                         bottomLeft = piece.blockColor;
                         bottomRight = piece.blockColor;
                     }
                 }
-                else if (localScale.x == 0.5f && localScale.y == 0.5f) // Quarter piece
+                else if (Mathf.Approximately( localScale.x, 0.5f ) && Mathf.Approximately( localScale.y, 0.5f ))
                 {
                     if (localPos.x <= 0 && localPos.y >= 0)
                         topLeft = piece.blockColor;
@@ -96,6 +134,7 @@ public class GridInfo : MonoBehaviour
         }
         else if (blockPieces.Length == 4)
         {
+            // Four piece block: one piece per corner
             foreach (BlockInfo piece in blockPieces)
             {
                 Vector3 localPos = piece.transform.localPosition;
