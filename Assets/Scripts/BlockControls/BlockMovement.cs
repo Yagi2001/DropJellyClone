@@ -4,36 +4,59 @@ public class BlockMovement : MonoBehaviour
 {
     [SerializeField]
     private float fallSpeed;
-    private float _bottomBorder;
-    public bool isFalling;
-
-    private void Start()
-    {
-        GameObject bottomBorder = GameObject.FindGameObjectWithTag( "Border" );
-        _bottomBorder = bottomBorder.transform.position.y;
-    }
+    private float _targetY;
+    private bool _isFalling = false;
 
     private void Update()
     {
-        if (isFalling)
+        if (_isFalling)
             BlockFall();
+    }
+    private bool HasReachedTarget()
+    {
+        if (transform.position.y <= _targetY)
+        {
+            Vector3 newPosition = transform.position;
+            newPosition.y = _targetY;
+            transform.position = newPosition;
+            return true;
+        }
+
+        return false;
     }
 
     private void BlockFall()
     {
         Vector3 newPosition = transform.position;
-        if (HasReachedBottomBorder())
+        if (HasReachedTarget())
         {
-            newPosition.y = _bottomBorder;
-            isFalling = false;
+            _isFalling = false;
             return;
         }
         newPosition.y -= fallSpeed * Time.deltaTime;
         transform.position = newPosition;
     }
 
-    private bool HasReachedBottomBorder()
+    public void FindPositionOfAvailableGrid( GameObject gridGroup )
     {
-        return transform.position.y <= _bottomBorder;
+        Transform lowestUnoccupied = null;
+        float minY = float.MaxValue;
+
+        foreach (Transform child in gridGroup.transform)
+        {
+            GameObject gridTile = child.gameObject;
+            GridInfo gridInfo = gridTile.GetComponent<GridInfo>();
+            if (!gridInfo.isOccupied)
+            {
+                if (child.position.y < minY)
+                {
+                    minY = child.position.y;
+                    lowestUnoccupied = child;
+                }
+            }
+        }
+        lowestUnoccupied.GetComponent<GridInfo>().isOccupied = true;
+        _targetY = minY;
+        _isFalling = true;
     }
 }

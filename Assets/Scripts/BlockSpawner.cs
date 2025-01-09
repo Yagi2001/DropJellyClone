@@ -15,7 +15,7 @@ public class BlockSpawner : MonoBehaviour
         SpawnRandomBlock();
     }
 
-    private void SpawnRandomBlock()
+    public void SpawnRandomBlock()
     {
         ResetAvailableCubes();
         int randomIndex = Random.Range( 0, _configurationPrefabs.Length );

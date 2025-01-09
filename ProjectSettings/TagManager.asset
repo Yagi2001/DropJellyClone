@@ -8,6 +8,7 @@ TagManager:
   - GridGroup
   - TouchArea
   - Border
+  - Grid
   layers:
   - Default
   - TransparentFX

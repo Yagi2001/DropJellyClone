@@ -41,7 +41,7 @@ public class BlockDragnDrop : MonoBehaviour
         Vector3 newPosition = transform.position;
         newPosition.x = closestGridGroup.transform.position.x;
         transform.position = newPosition;
-        _blockMovement.isFalling = true;
+        _blockMovement.FindPositionOfAvailableGrid( closestGridGroup );
         _isDraggable = false;
     }
 
