@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 3857119432413811069}
   - component: {fileID: 4875578087481036438}
   - component: {fileID: 1018980355463505899}
+  - component: {fileID: 2522723801248663097}
   m_Layer: 3
   m_Name: FourColorCube
   m_TagString: Block
@@ -425,3 +426,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
+--- !u!114 &2522723801248663097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4478545416338274275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73be03bdf43a31746b49942906ef0097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialBlockCount: 4

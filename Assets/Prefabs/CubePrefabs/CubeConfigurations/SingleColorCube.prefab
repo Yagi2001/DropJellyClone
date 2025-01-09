@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3463569343410341954}
   - component: {fileID: -2989740917827734816}
   - component: {fileID: 3447355707054946121}
+  - component: {fileID: -7646608857079205185}
   m_Layer: 3
   m_Name: SingleColorCube
   m_TagString: Block
@@ -73,7 +74,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623f16c7504ab8444a3d06caa283b66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockSpawner: {fileID: 0}
 --- !u!114 &3447355707054946121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,11 +87,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
-  isFalling: 0
-  blockLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  raycastDistance: 25
+--- !u!114 &-7646608857079205185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385208096807638925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73be03bdf43a31746b49942906ef0097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialBlockCount: 1
 --- !u!1 &385208098300799043
 GameObject:
   m_ObjectHideFlags: 0

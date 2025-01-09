@@ -31,9 +31,15 @@ public class BlockSpawner : MonoBehaviour
         ResetAvailableCubes();
         int randomIndex = UnityEngine.Random.Range( 0, _configurationPrefabs.Length );
         GameObject newBlock = Instantiate( _configurationPrefabs[randomIndex], transform.position, Quaternion.identity );
-        //newBlock.transform.rotation = Quaternion.Euler( 0, 0, GetRandomRotation() );
 
-        foreach (Transform part in newBlock.transform)
+        // Create a static list of original children
+        List<Transform> originalChildren = new List<Transform>();
+        foreach (Transform child in newBlock.transform)
+        {
+            originalChildren.Add( child );
+        }
+
+        foreach (Transform part in originalChildren)
         {
             GameObject randomCube = GetUniqueCubePrefab();
             GameObject newCube = Instantiate( randomCube, part.position, part.rotation, newBlock.transform );
