@@ -43,7 +43,7 @@ public class BlockDragnDrop : MonoBehaviour
         transform.position = newPosition;
         _blockMovement.FindPositionOfAvailableGrid( closestGridGroup );
         _isDraggable = false;
-        BlockSpawner.BlocksSettled?.Invoke();
+        //BlockSpawner.BlocksSettled?.Invoke();
     }
 
     private Vector3 GetMouseWorldPosition()

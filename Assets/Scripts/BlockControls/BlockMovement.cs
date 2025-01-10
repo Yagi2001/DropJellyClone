@@ -6,6 +6,7 @@ public class BlockMovement : MonoBehaviour
     private float fallSpeed;
     private float _targetY;
     private bool _isFalling = false;
+    private GameObject _lowestUnoccupied;
 
     private void Update()
     {
@@ -19,6 +20,14 @@ public class BlockMovement : MonoBehaviour
             Vector3 newPosition = transform.position;
             newPosition.y = _targetY;
             transform.position = newPosition;
+            GridInfo gridInfo = _lowestUnoccupied.GetComponent<GridInfo>();
+            GridMatchSearch gridMatchSearch = _lowestUnoccupied.GetComponent<GridMatchSearch>();
+            gridInfo.isOccupied = true;
+            gridInfo.AttachBlocksToPositions( gameObject );
+            if (gridMatchSearch.CheckMatches() == false)
+                BlockSpawner.BlocksSettled?.Invoke();
+            else
+                Debug.Log( "true" );
             return true;
         }
 
@@ -55,8 +64,7 @@ public class BlockMovement : MonoBehaviour
                 }
             }
         }
-        lowestUnoccupied.GetComponent<GridInfo>().isOccupied = true;
-        lowestUnoccupied.GetComponent<GridInfo>().AttachBlocksToPositions( gameObject );
+        _lowestUnoccupied = lowestUnoccupied.gameObject;
         _targetY = minY;
         _isFalling = true;
     }
