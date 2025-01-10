@@ -44,6 +44,7 @@ public class BlockDragnDrop : MonoBehaviour
         _blockMovement.FindPositionOfAvailableGrid( closestGridGroup );
         _isDraggable = false;
         BlockSpawner.BlocksSettled?.Invoke();
+        GameManager.MoveMade?.Invoke();
     }
 
     private Vector3 GetMouseWorldPosition()
