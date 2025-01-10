@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GridMatchSearch : MonoBehaviour
 {
+    private bool _isThereMatch;
     private GridInfo _gridInfo;
     private float _matchTime = 1f; // Adjust as animation need
     private GridInfo _matchedGrid;

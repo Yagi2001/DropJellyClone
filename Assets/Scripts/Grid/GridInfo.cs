@@ -152,15 +152,11 @@ public class GridInfo : MonoBehaviour
             if (topNeighbor.isOccupied)
             {
                 BlockMovement blockMovement = topNeighbor.occupyingBlock.GetComponent<BlockMovement>();
-                topNeighbor.isOccupied = false;
-                topNeighbor.topLeft = null;
-                topNeighbor.topRight = null;
-                topNeighbor.bottomLeft = null;
-                topNeighbor.bottomRight = null;
                 Vector3 newPosition = blockMovement.transform.position;
                 newPosition.y = transform.position.y;
                 blockMovement.transform.position = newPosition;
-                AttachBlocksToPositions(blockMovement.gameObject);
+                occupyingBlock = blockMovement.gameObject;
+                AttachBlocksToPositions( blockMovement.gameObject );
             }
         }
     }

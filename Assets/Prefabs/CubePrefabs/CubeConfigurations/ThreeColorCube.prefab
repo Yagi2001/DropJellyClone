@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623f16c7504ab8444a3d06caa283b66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 6457445373986148354}
 --- !u!114 &3833002762795304769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73be03bdf43a31746b49942906ef0097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialBlockCount: 3
+  occupiedGrid: {fileID: 0}
 --- !u!1 &4488100408669065167
 GameObject:
   m_ObjectHideFlags: 0

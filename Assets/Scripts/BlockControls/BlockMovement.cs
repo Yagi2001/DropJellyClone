@@ -4,6 +4,7 @@ public class BlockMovement : MonoBehaviour
 {
     [SerializeField]
     private float fallSpeed;
+
     private float _targetY;
     private bool _isFalling = false;
     private GameObject _lowestUnoccupied;
@@ -27,12 +28,14 @@ public class BlockMovement : MonoBehaviour
             Vector3 newPosition = transform.position;
             newPosition.y = _targetY;
             transform.position = newPosition;
+
             GridInfo gridInfo = _lowestUnoccupied.GetComponent<GridInfo>();
             gridInfo.AttachBlocksToPositions( gameObject );
             gridInfo.isOccupied = true;
-            GridMatchSearch gridMatchSearch = _lowestUnoccupied.GetComponent<GridMatchSearch>();
-            CheckNeighborMatches( gridInfo );
-            //gridMatchSearch.CheckForMatchingNeighbor( gridInfo );
+
+            // Continuously check neighbors until there are no more matches
+            ContinuouslyCheckNeighborMatches( gridInfo );
+
             return true;
         }
         return false;
@@ -52,7 +55,6 @@ public class BlockMovement : MonoBehaviour
 
     public void FindPositionOfAvailableGrid( GameObject gridGroup )
     {
-        Debug.Log( "Entered here" );
         Transform lowestUnoccupied = null;
         float minY = float.MaxValue;
 
@@ -77,28 +79,37 @@ public class BlockMovement : MonoBehaviour
             _isFalling = true;
         }
     }
-
-    private void CheckNeighborMatches( GridInfo gridInfo )
+    private void ContinuouslyCheckNeighborMatches( GridInfo gridInfo )
     {
-        if (gridInfo.topNeighbor != null)
+        bool foundMatchesInPass;
+        do
         {
-            GridMatchSearch topMatch = gridInfo.topNeighbor.GetComponent<GridMatchSearch>();
-            if (topMatch != null) topMatch.CheckMatches();
+            foundMatchesInPass = false;
+            if (gridInfo.topNeighbor != null)
+            {
+                GridMatchSearch topSearch = gridInfo.topNeighbor.GetComponent<GridMatchSearch>();
+                if (topSearch != null && topSearch.CheckMatches())
+                    foundMatchesInPass = true;
+            }
+            if (gridInfo.bottomNeighbor != null)
+            {
+                GridMatchSearch bottomSearch = gridInfo.bottomNeighbor.GetComponent<GridMatchSearch>();
+                if (bottomSearch != null && bottomSearch.CheckMatches())
+                    foundMatchesInPass = true;
+            }
+            if (gridInfo.leftNeighbor != null)
+            {
+                GridMatchSearch leftSearch = gridInfo.leftNeighbor.GetComponent<GridMatchSearch>();
+                if (leftSearch != null && leftSearch.CheckMatches())
+                    foundMatchesInPass = true;
+            }
+            if (gridInfo.rightNeighbor != null)
+            {
+                GridMatchSearch rightSearch = gridInfo.rightNeighbor.GetComponent<GridMatchSearch>();
+                if (rightSearch != null && rightSearch.CheckMatches())
+                    foundMatchesInPass = true;
+            }
         }
-        if (gridInfo.bottomNeighbor != null)
-        {
-            GridMatchSearch bottomMatch = gridInfo.bottomNeighbor.GetComponent<GridMatchSearch>();
-            if (bottomMatch != null) bottomMatch.CheckMatches();
-        }
-        if (gridInfo.leftNeighbor != null)
-        {
-            GridMatchSearch leftMatch = gridInfo.leftNeighbor.GetComponent<GridMatchSearch>();
-            if (leftMatch != null) leftMatch.CheckMatches();
-        }
-        if (gridInfo.rightNeighbor != null)
-        {
-            GridMatchSearch rightMatch = gridInfo.rightNeighbor.GetComponent<GridMatchSearch>();
-            if (rightMatch != null) rightMatch.CheckMatches();
-        }
+        while (foundMatchesInPass);
     }
 }

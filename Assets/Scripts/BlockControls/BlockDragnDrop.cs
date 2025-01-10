@@ -8,6 +8,8 @@ public class BlockDragnDrop : MonoBehaviour
     private Camera _mainCamera;
     private Vector3 _mouseOffset;
     private GameObject[] _gridGroups;
+    [SerializeField]
+    private Collider2D _collider;
     private void Start()
     {
         _mainCamera = Camera.main;
@@ -43,6 +45,7 @@ public class BlockDragnDrop : MonoBehaviour
         transform.position = newPosition;
         _blockMovement.FindPositionOfAvailableGrid( closestGridGroup );
         _isDraggable = false;
+        _collider.enabled = false;
         BlockSpawner.BlocksSettled?.Invoke();
         GameManager.MoveMade?.Invoke();
     }
