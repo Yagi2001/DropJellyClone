@@ -34,8 +34,8 @@ public class BlockMovement : MonoBehaviour
             gridInfo.isOccupied = true;
 
             // Continuously check neighbors until there are no more matches
+            GameManager.MoveMade?.Invoke();
             ContinuouslyCheckNeighborMatches( gridInfo );
-
             return true;
         }
         return false;
