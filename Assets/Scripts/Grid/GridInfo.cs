@@ -163,7 +163,6 @@ public class GridInfo : MonoBehaviour
 
     private bool OccupationCheck()
     {
-        Debug.Log( occupyingBlock.transform.childCount );
         if (occupyingBlock.transform.childCount > 1)
         {
             return true;

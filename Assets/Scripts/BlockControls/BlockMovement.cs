@@ -111,5 +111,6 @@ public class BlockMovement : MonoBehaviour
             }
         }
         while (foundMatchesInPass);
+        BlockSpawner.BlocksSettled?.Invoke();
     }
 }

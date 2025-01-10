@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class BlockSpawner : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class BlockSpawner : MonoBehaviour
     private GameObject[] _cubePrefabs;
     [SerializeField]
     private GameObject[] _configurationPrefabs;
+    [SerializeField]
+    private Transform _blockPosition;
 
     private void OnEnable()
     {
@@ -46,11 +49,29 @@ public class BlockSpawner : MonoBehaviour
             newCube.transform.localScale = part.localScale;
             Destroy( part.gameObject );
         }
+        StartCoroutine( MoveToYPosition( newBlock.transform, _blockPosition.position.y ) );
+    }
+
+    private IEnumerator MoveToYPosition( Transform target, float targetY )
+    {
+        float duration = 0.3f;
+        float elapsedTime = 0f;
+
+        Vector3 startPosition = target.position;
+        Vector3 targetPosition = new Vector3( startPosition.x, targetY, startPosition.z );
+
+        while (elapsedTime < duration)
+        {
+            target.position = Vector3.Lerp( startPosition, targetPosition, elapsedTime / duration );
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        target.position = targetPosition;
     }
 
     // Ensures that the same color is not used more than once on the block
     // This needs fix
-    private GameObject GetUniqueCubePrefab( )
+    private GameObject GetUniqueCubePrefab()
     {
         int randomIndex = UnityEngine.Random.Range( 0, _availableCubes.Count );
         GameObject selectedCube = _availableCubes[randomIndex];

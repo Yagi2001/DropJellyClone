@@ -46,7 +46,6 @@ public class BlockDragnDrop : MonoBehaviour
         _blockMovement.FindPositionOfAvailableGrid( closestGridGroup );
         _isDraggable = false;
         _collider.enabled = false;
-        BlockSpawner.BlocksSettled?.Invoke();
         GameManager.MoveMade?.Invoke();
     }
 

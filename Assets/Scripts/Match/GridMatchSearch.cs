@@ -3,10 +3,10 @@ using System.Collections;
 
 public class GridMatchSearch : MonoBehaviour
 {
-    private bool _isThereMatch;
+    [SerializeField]
+    private AudioSource _matchSoundEffect;
     private GridInfo _gridInfo;
     private float _matchTime = 1f; // Adjust as animation need
-    private GridInfo _matchedGrid;
     private void Start()
     {
         _gridInfo = GetComponent<GridInfo>();
@@ -170,6 +170,7 @@ public class GridMatchSearch : MonoBehaviour
     private IEnumerator DestroyMatchingObjects( GameObject firstBlock, GameObject secondBlock )
     {
         yield return new WaitForSeconds( 0.5f );
+        _matchSoundEffect.Play();
         firstBlock.SetActive( false );
         secondBlock.SetActive( false );
         yield return new WaitForSeconds( _matchTime );

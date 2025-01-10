@@ -5,7 +5,6 @@ public class FillBlock : MonoBehaviour
     public GameObject occupiedGrid;
     public void FillMissingBlock( Transform destroyedBlock )
     {
-        Debug.Log( "Entered Here" );
         foreach (Transform child in transform)
         {
             if (child == destroyedBlock)
