@@ -7,6 +7,12 @@ public class BlockMovement : MonoBehaviour
     private float _targetY;
     private bool _isFalling = false;
     private GameObject _lowestUnoccupied;
+    private FillBlock _blockInfo;
+
+    private void Start()
+    {
+        _blockInfo = GetComponent<FillBlock>();
+    }
 
     private void Update()
     {
@@ -65,6 +71,7 @@ public class BlockMovement : MonoBehaviour
             }
         }
         _lowestUnoccupied = lowestUnoccupied.gameObject;
+        _blockInfo.occupiedGrid = _lowestUnoccupied;
         _targetY = minY;
         _isFalling = true;
     }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FillBlock : MonoBehaviour
 {
+    public GameObject occupiedGrid;
     public void FillMissingBlock( Transform destroyedBlock )
     {
         foreach (Transform child in transform)
@@ -25,5 +26,11 @@ public class FillBlock : MonoBehaviour
                 break;
             }
         }
+        ReAttachColors();
+    }
+    private void ReAttachColors()
+    {
+        GridInfo gridInfo = occupiedGrid.GetComponent<GridInfo>();
+        gridInfo.AttachBlocksToPositions( gameObject );
     }
 }
