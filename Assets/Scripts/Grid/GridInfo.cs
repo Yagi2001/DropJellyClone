@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GridInfo : MonoBehaviour
 {
     public bool isOccupied;
+    public GameObject occupyingBlock;
     public GameObject topLeft;
     public GameObject topRight;
     public GameObject bottomLeft;
@@ -22,6 +21,7 @@ public class GridInfo : MonoBehaviour
 
     public void AttachBlocksToPositions( GameObject block )
     {
+        occupyingBlock = block;
         BlockInfo[] blockPieces = block.GetComponentsInChildren<BlockInfo>();
 
         if (blockPieces.Length == 1)

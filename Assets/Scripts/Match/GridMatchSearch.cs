@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GridMatchSearch : MonoBehaviour
@@ -9,6 +7,11 @@ public class GridMatchSearch : MonoBehaviour
     private void Start()
     {
         _gridInfo = GetComponent<GridInfo>();
+    }
+
+    private void Update()
+    {
+        CheckMatches();
     }
 
     public bool CheckMatches()
@@ -45,6 +48,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.topRight );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.topRight, gridInfo.topNeighbor.bottomRight );
                 Destroy( gridInfo.topRight );
                 Destroy( gridInfo.topNeighbor.bottomRight );
                 gridInfo.topRight = null;
@@ -59,6 +63,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.topLeft );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.topLeft, gridInfo.topNeighbor.bottomLeft );
                 Destroy( gridInfo.topLeft );
                 Destroy( gridInfo.topNeighbor.bottomLeft );
                 gridInfo.topLeft = null;
@@ -80,6 +85,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.bottomRight );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.bottomRight, gridInfo.bottomNeighbor.topRight );
                 Destroy( gridInfo.bottomRight );
                 Destroy( gridInfo.bottomNeighbor.topRight );
                 gridInfo.bottomRight = null;
@@ -94,6 +100,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.bottomLeft );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.bottomLeft, gridInfo.bottomNeighbor.topLeft );
                 Destroy( gridInfo.bottomLeft );
                 Destroy( gridInfo.bottomNeighbor.topLeft );
                 gridInfo.bottomLeft = null;
@@ -115,6 +122,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.topLeft );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.topLeft, gridInfo.leftNeighbor.topRight );
                 Destroy( gridInfo.topLeft );
                 Destroy( gridInfo.leftNeighbor.topRight );
                 gridInfo.topLeft = null;
@@ -129,6 +137,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.bottomLeft );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.bottomLeft, gridInfo.leftNeighbor.bottomRight );
                 Destroy( gridInfo.bottomLeft );
                 Destroy( gridInfo.leftNeighbor.bottomRight );
                 gridInfo.bottomLeft = null;
@@ -150,6 +159,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.topRight );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.topRight, gridInfo.rightNeighbor.topLeft );
                 Destroy( gridInfo.topRight );
                 Destroy( gridInfo.rightNeighbor.topLeft );
                 gridInfo.topRight = null;
@@ -164,6 +174,7 @@ public class GridMatchSearch : MonoBehaviour
             BlockColor ourColor = GetBlockColor( gridInfo.bottomRight );
             if (neighborColor != BlockColor.None && neighborColor == ourColor)
             {
+                DestroyMatchingObjects( gridInfo.bottomRight, gridInfo.rightNeighbor.bottomLeft );
                 Destroy( gridInfo.bottomRight );
                 Destroy( gridInfo.rightNeighbor.bottomLeft );
                 gridInfo.bottomRight = null;
@@ -180,5 +191,13 @@ public class GridMatchSearch : MonoBehaviour
         BlockInfo info = piece.GetComponent<BlockInfo>();
         if (info != null) return info.blockColor;
         return BlockColor.None;
+    }
+
+    private void DestroyMatchingObjects (GameObject firstBlock, GameObject secondBlock )
+    {
+        FillBlock fillBlockFirst = firstBlock.GetComponentInParent<FillBlock>();
+        FillBlock fillBlockSecond = secondBlock.GetComponentInParent<FillBlock>();
+        fillBlockFirst.FillMissingBlock(firstBlock.transform);
+        fillBlockSecond.FillMissingBlock( secondBlock.transform );
     }
 }
