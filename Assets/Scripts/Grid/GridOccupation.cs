@@ -14,11 +14,8 @@ public class GridOccupation : MonoBehaviour
     {
         if (OccupyCheck() == false)
         {
-            Debug.Log( "NonOccupied" );
             _gridInfo.isOccupied = false;
         }
-        else
-            Debug.Log( "occupied" );
     }
     private bool OccupyCheck()
     {

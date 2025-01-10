@@ -3361,8 +3361,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529115355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0551, y: -1.0628, z: 0}
-  m_LocalScale: {x: 6.214204, y: 8.506503, z: 1}
+  m_LocalPosition: {x: 0.6397, y: -0.5817, z: 0}
+  m_LocalScale: {x: 10.169316, y: 13.4601345, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -9208,6 +9208,7 @@ MonoBehaviour:
   _movesText: {fileID: 661405398}
   _goalText: {fileID: 1156411430}
   _nextLevelScreen: {fileID: 876515541}
+  _gameOverScreen: {fileID: 1862234282}
 --- !u!4 &1723349574
 Transform:
   m_ObjectHideFlags: 0
