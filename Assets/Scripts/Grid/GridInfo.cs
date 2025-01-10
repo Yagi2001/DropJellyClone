@@ -161,6 +161,52 @@ public class GridInfo : MonoBehaviour
         }
     }
 
+    public void LoopThroughParts()
+    {
+        GameObject[] corners = new GameObject[] { topLeft, topRight, bottomLeft, bottomRight };
+        int nullCount = 0;
+
+        for (int i = 0; i < corners.Length; i++)
+        {
+            if (corners[i] == null)
+                nullCount++;
+        }
+
+        if (nullCount == 2)
+        {
+            for (int i = 0; i < corners.Length; i++)
+            {
+                if (corners[i] != null)
+                {
+                    Transform cornerTransform = corners[i].transform;
+                    Vector3 cornerScale = cornerTransform.localScale;
+                    Vector3 cornerPos = cornerTransform.localPosition;
+                    if (cornerScale.x < 0.75f)
+                    {
+                        cornerScale.x = 1f;
+                        cornerTransform.localScale = cornerScale;
+
+                        cornerPos.x = 0f;
+                        cornerTransform.localPosition = cornerPos;
+
+                        continue;
+                    }
+                    if (cornerScale.y < 0.75f)
+                    {
+                        cornerScale.y = 1f;
+                        cornerTransform.localScale = cornerScale;
+                        cornerPos.y = 0f;
+                        cornerTransform.localPosition = cornerPos;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
     private bool OccupationCheck()
     {
         if (occupyingBlock.transform.childCount > 1)

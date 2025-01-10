@@ -181,6 +181,7 @@ public class GridMatchSearch : MonoBehaviour
         fillBlockSecond.FillMissingBlock( secondBlock.transform );
         Destroy( firstBlock );
         Destroy( secondBlock );
+        GameManager.MatchMade?.Invoke();
         //_gridInfo.OccupationCheck();
     }
 }
