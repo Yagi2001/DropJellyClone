@@ -5,6 +5,7 @@ public class FillBlock : MonoBehaviour
     public GameObject occupiedGrid;
     public void FillMissingBlock( Transform destroyedBlock )
     {
+        Debug.Log( "Entered Here" );
         foreach (Transform child in transform)
         {
             if (child == destroyedBlock)
@@ -16,7 +17,6 @@ public class FillBlock : MonoBehaviour
             {
                 child.localPosition = new Vector3( child.localPosition.x, 0f, child.localPosition.z );
                 child.localScale = new Vector3( child.localScale.x, 1f, child.localScale.z );
-                Debug.Log( $"Child {child.name} position x difference < 0.05f and scale y adjusted to: {child.localScale}" );
                 break;
             }
             if (Mathf.Abs( positionDiff.y ) < 0.05f && child.localScale.x < 0.95f)
@@ -31,6 +31,7 @@ public class FillBlock : MonoBehaviour
     private void ReAttachColors()
     {
         GridInfo gridInfo = occupiedGrid.GetComponent<GridInfo>();
+        gridInfo.OccupationChange();
         gridInfo.AttachBlocksToPositions( gameObject );
     }
 }

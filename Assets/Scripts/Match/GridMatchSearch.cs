@@ -5,7 +5,7 @@ public class GridMatchSearch : MonoBehaviour
 {
     private GridInfo _gridInfo;
     private float _matchTime = 1f; // Adjust as animation need
-
+    private GridInfo _matchedGrid;
     private void Start()
     {
         _gridInfo = GetComponent<GridInfo>();
@@ -168,6 +168,7 @@ public class GridMatchSearch : MonoBehaviour
 
     private IEnumerator DestroyMatchingObjects( GameObject firstBlock, GameObject secondBlock )
     {
+        yield return new WaitForSeconds( 0.5f );
         firstBlock.SetActive( false );
         secondBlock.SetActive( false );
         yield return new WaitForSeconds( _matchTime );
@@ -178,5 +179,6 @@ public class GridMatchSearch : MonoBehaviour
         fillBlockSecond.FillMissingBlock( secondBlock.transform );
         Destroy( firstBlock );
         Destroy( secondBlock );
+        //_gridInfo.OccupationCheck();
     }
 }

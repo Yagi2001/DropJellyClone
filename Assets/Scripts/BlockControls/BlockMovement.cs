@@ -19,6 +19,7 @@ public class BlockMovement : MonoBehaviour
         if (_isFalling)
             BlockFall();
     }
+
     private bool HasReachedTarget()
     {
         if (transform.position.y <= _targetY)
@@ -27,40 +28,37 @@ public class BlockMovement : MonoBehaviour
             newPosition.y = _targetY;
             transform.position = newPosition;
             GridInfo gridInfo = _lowestUnoccupied.GetComponent<GridInfo>();
-            GridMatchSearch gridMatchSearch = _lowestUnoccupied.GetComponent<GridMatchSearch>();
-            gridInfo.isOccupied = true;
             gridInfo.AttachBlocksToPositions( gameObject );
-            if (gridMatchSearch.CheckMatches() == false)
-                BlockSpawner.BlocksSettled?.Invoke();
-            else
-                Debug.Log( "true" );
+            gridInfo.isOccupied = true;
+            GridMatchSearch gridMatchSearch = _lowestUnoccupied.GetComponent<GridMatchSearch>();
+            CheckNeighborMatches( gridInfo );
+            //gridMatchSearch.CheckForMatchingNeighbor( gridInfo );
             return true;
         }
-
         return false;
     }
 
     private void BlockFall()
     {
-        Vector3 newPosition = transform.position;
         if (HasReachedTarget())
         {
             _isFalling = false;
             return;
         }
+        Vector3 newPosition = transform.position;
         newPosition.y -= fallSpeed * Time.deltaTime;
         transform.position = newPosition;
     }
 
     public void FindPositionOfAvailableGrid( GameObject gridGroup )
     {
+        Debug.Log( "Entered here" );
         Transform lowestUnoccupied = null;
         float minY = float.MaxValue;
 
         foreach (Transform child in gridGroup.transform)
         {
-            GameObject gridTile = child.gameObject;
-            GridInfo gridInfo = gridTile.GetComponent<GridInfo>();
+            GridInfo gridInfo = child.GetComponent<GridInfo>();
             if (!gridInfo.isOccupied)
             {
                 if (child.position.y < minY)
@@ -70,9 +68,37 @@ public class BlockMovement : MonoBehaviour
                 }
             }
         }
-        _lowestUnoccupied = lowestUnoccupied.gameObject;
-        _blockInfo.occupiedGrid = _lowestUnoccupied;
-        _targetY = minY;
-        _isFalling = true;
+
+        if (lowestUnoccupied != null)
+        {
+            _lowestUnoccupied = lowestUnoccupied.gameObject;
+            _blockInfo.occupiedGrid = _lowestUnoccupied;
+            _targetY = minY;
+            _isFalling = true;
+        }
+    }
+
+    private void CheckNeighborMatches( GridInfo gridInfo )
+    {
+        if (gridInfo.topNeighbor != null)
+        {
+            GridMatchSearch topMatch = gridInfo.topNeighbor.GetComponent<GridMatchSearch>();
+            if (topMatch != null) topMatch.CheckMatches();
+        }
+        if (gridInfo.bottomNeighbor != null)
+        {
+            GridMatchSearch bottomMatch = gridInfo.bottomNeighbor.GetComponent<GridMatchSearch>();
+            if (bottomMatch != null) bottomMatch.CheckMatches();
+        }
+        if (gridInfo.leftNeighbor != null)
+        {
+            GridMatchSearch leftMatch = gridInfo.leftNeighbor.GetComponent<GridMatchSearch>();
+            if (leftMatch != null) leftMatch.CheckMatches();
+        }
+        if (gridInfo.rightNeighbor != null)
+        {
+            GridMatchSearch rightMatch = gridInfo.rightNeighbor.GetComponent<GridMatchSearch>();
+            if (rightMatch != null) rightMatch.CheckMatches();
+        }
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GridInfo : MonoBehaviour
 {
+    public GameObject gridGroup;
     public bool isOccupied;
     public GameObject occupyingBlock;
     public GameObject topLeft;
@@ -140,5 +141,37 @@ public class GridInfo : MonoBehaviour
                     bottomRight = piece.gameObject;
             }
         }
+    }
+
+    public void OccupationChange()
+    {
+        if (!OccupationCheck())
+        {
+            isOccupied = false;
+            Destroy( occupyingBlock );
+            if (topNeighbor.isOccupied)
+            {
+                BlockMovement blockMovement = topNeighbor.occupyingBlock.GetComponent<BlockMovement>();
+                topNeighbor.isOccupied = false;
+                topNeighbor.topLeft = null;
+                topNeighbor.topRight = null;
+                topNeighbor.bottomLeft = null;
+                topNeighbor.bottomRight = null;
+                Vector3 newPosition = blockMovement.transform.position;
+                newPosition.y = transform.position.y;
+                blockMovement.transform.position = newPosition;
+                AttachBlocksToPositions(blockMovement.gameObject);
+            }
+        }
+    }
+
+    private bool OccupationCheck()
+    {
+        Debug.Log( occupyingBlock.transform.childCount );
+        if (occupyingBlock.transform.childCount > 1)
+        {
+            return true;
+        }
+        return false;
     }
 }
